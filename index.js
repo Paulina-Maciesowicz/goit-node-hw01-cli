@@ -1,7 +1,9 @@
 const fs = require("./contacts.js");
 const contactList = fs.listContacts();
 
-async function cokolwiek() {
- await console.log(contactList);
-}
-function cokolwiek()
+(async () => {
+  const contactList = await fs.removeContact("6");
+  console.table(contactList);
+})();
+
+

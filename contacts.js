@@ -2,27 +2,52 @@ const fs = require("fs").promises;
 const path = require("path");
 const contactsPath = path.join(__dirname, "db", "contacts.json");
 
-/*
- * Skomentuj i zapisz wartość
- * const contactsPath = ;
- */
-
-// TODO: udokumentuj każdą funkcję
 async function listContacts() {
-//   console.log("test");
-
+  //   console.log("test");
+  try {
     const data = await fs.readFile(contactsPath, "utf-8");
-    const contact = JSON.parse(data);
+    const contacts = JSON.parse(data);
+    return contacts;
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function getContactById(contactId) {
+  try {
+    const data = await fs.readFile(contactsPath, "utf-8");
+    const contacts = JSON.parse(data);
+    const contact = contacts.find((c) => c.id === contactId);
+    if (contact === undefined) {
+      return `id ${contactId} not found`;
+    }
     return contact;
-  // ...twój kod
+  } catch (error) {
+    console.error(error);
+  }
 }
 
-function getContactById(contactId) {
-  // ...twój kod
-}
+async function removeContact(contactId) {
+  //   setContacts(updatedContacts);
+  {
+    try {
+      const data = await fs.readFile(contactsPath, "utf-8");
+      const contacts = JSON.parse(data);
+      const contact = contacts.find((c) => c.id === contactId);
+      const updatedContacts = contacts.filter(
+        (contact) => contact.id !== contactId
+      );
+      if (contact === undefined) {
+        return `id ${contactId} not found`;
+      }
+      const updatedContactsJSON = JSON.stringify(updatedContacts);
+      //   console.log(updatedContactsJSON);
 
-function removeContact(contactId) {
-  // ...twój kod
+      await fs.writeFile(contactsPath, updatedContactsJSON);
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
 
 function addContact(name, email, phone) {
