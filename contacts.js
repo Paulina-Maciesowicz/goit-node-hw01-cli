@@ -1,3 +1,7 @@
+const nanoid = require('nanoid');
+const uniqueId = nanoid();
+console.log(uniqueId);
+
 const fs = require("fs").promises;
 const path = require("path");
 const contactsPath = path.join(__dirname, "db", "contacts.json");
@@ -50,8 +54,19 @@ async function removeContact(contactId) {
   }
 }
 
-function addContact(name, email, phone) {
-  // ...twój kod
+async function addContact(name, email, phone) {
+  const data = await fs.readFile(contactsPath, "utf-8");
+  const contacts = JSON.parse(data);
+  
+  const newContact = {
+    id: nanoid(),
+    name: name,
+    email: email,
+    phone: phone,
+  };
+  const updatedContacts = [...contacts, newContact];
+  const updatedContactsJSON = JSON.stringify(updatedContacts);
+await fs.writeFile(contactsPath, updatedContactsJSON);
 }
 
 module.exports = { listContacts, getContactById, removeContact, addContact };
