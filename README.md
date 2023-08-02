@@ -1,0 +1,1 @@
+Link do screenshotów -> https://drive.google.com/drive/folders/1e4zqr9Ru8_RyM6c5x_LBJiyLoC6znid6?usp=sharing

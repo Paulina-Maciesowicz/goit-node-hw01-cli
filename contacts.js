@@ -3,7 +3,6 @@ const path = require("path");
 const contactsPath = path.join(__dirname, "db", "contacts.json");
 
 async function listContacts() {
-  //   console.log("test");
   try {
     const data = await fs.readFile(contactsPath, "utf-8");
     const contacts = JSON.parse(data);
@@ -28,7 +27,6 @@ async function getContactById(contactId) {
 }
 
 async function removeContact(contactId) {
-  //   setContacts(updatedContacts);
   {
     try {
       const data = await fs.readFile(contactsPath, "utf-8");
@@ -41,7 +39,6 @@ async function removeContact(contactId) {
         return `id ${contactId} not found`;
       }
       const updatedContactsJSON = JSON.stringify(updatedContacts);
-      //   console.log(updatedContactsJSON);
 
       await fs.writeFile(contactsPath, updatedContactsJSON);
     } catch (error) {
